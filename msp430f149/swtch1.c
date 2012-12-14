@@ -1,5 +1,14 @@
-
-
+/*------------------------------------------------------------------*/
+// MSP430F149 helloworld program
+//            |=======|
+// vcc--->P2.0|       |
+// vcc--->P2.1|       |
+//            |       |P3.0<--switch<--vcc
+//            |=======|
+//
+// red leds connected to P2
+// written by ASHOK ASHWIN
+/*-----------------------------------------------------------*/
 #include <msp430f149.h>
 
 #define SWITCH               BIT0
