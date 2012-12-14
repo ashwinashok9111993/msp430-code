@@ -30,7 +30,7 @@ void main(void)
 			P1OUT = 0b00000000;
 		 if(j<4)
          	{
-				P1OUT |= ( 0b000000001 << j); 
+				P1OUT |= ( 0b000000001 << j); //bitwise operators
 			   
 		   }
                  else
