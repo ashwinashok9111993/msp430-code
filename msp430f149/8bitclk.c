@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------*/
-// MSP430G2231 simple 4-bit clock with __delay_cycles()
+// MSP430f149 simple 8-bit clock with __delay_cycles()
 //             |=======|
 // vcc-->P2.0--|       |
 // vcc-->P2.1--|       |
