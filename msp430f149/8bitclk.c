@@ -8,7 +8,7 @@
 // vcc-->P2.4--|       |
 // vcc-->P2.5--|       |
 // vcc-->P2.6--|       |
-// vcc-->P2.6--|       |
+// vcc-->P2.7--|       |
 // external leds connected to P2
 /*------------------------------------------------------------------*/
 
@@ -19,7 +19,7 @@ volatile unsigned int i,j;
 void main(void)
 {
   WDTCTL = WDTPW + WDTHOLD;
-	
+
 	P2DIR = 0xff;
 	while(1)
 	{
@@ -27,10 +27,10 @@ void main(void)
 		{
 			P2OUT=0xff;            // initialization
                         P2OUT &=~ j ;          //assign pins with binary values
-		    __delay_cycles(100000);
-		   
+		    __delay_cycles(100000);    //software delay
+
 		  }
-		
-		
+
+
 	    }
 	}
