@@ -59,7 +59,7 @@ void Single_Measure(void)
 	ADC10CTL0 = ADC10ON;	// 16 clock ticks, ADC On, enable ADC interrupt
 	ADC10CTL1 = ADC10SSEL_3 + INCH_5;		//internal temp sensor
 	ADC10CTL0 |= ENC + ADC10SC;            	// Enable and start conversion
-	puts(itoa(ADC10MEM,buffer,10));
+	putchar((ADC10MEM)*0.25);
 	
 	count += 1;
 	if(count == 128)
@@ -77,7 +77,7 @@ int putchar(int b)
 }
 
 
-interrupt(USCIAB0RX_VECTOR)  USCI0RX_ISR(void)
+interrupt(USCIAB0RX_VECTOR) USCI0RX_ISR(void)
 {
   
   if (UCA0RXBUF == 'y')
