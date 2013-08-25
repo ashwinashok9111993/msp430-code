@@ -1,4 +1,3 @@
-# Companion file for Oscilloscope.c
 #Simple Oscilloscope 
 
 import os, sys
@@ -14,10 +13,7 @@ class Example(QtGui.QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
         self.a=[]
-        self.ser = serial.Serial("/dev/ttyUSB0",115200)#replace with whatever COM port
-        
-        #use only 115200 baud
-        
+        self.ser = serial.Serial("/dev/ttyUSB0",115200)
         self.initUI()
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.update_plot)
@@ -34,7 +30,7 @@ class Example(QtGui.QMainWindow):
         
         self.plot = pg.PlotWidget()
         self.curve = self.plot.plot(pen='y')     
-        self.plot.setRange(None,None,(0,1024))
+        self.plot.setRange(None,None,(0,256))
         
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('&File')
@@ -51,7 +47,7 @@ class Example(QtGui.QMainWindow):
         
 		for i in xrange(100):
 			self.ser.write('y')
-			self.a.append(int(self.ser.readline().rstrip("\n")))
+			self.a.append(ord(self.ser.read(1)))
 			self.p=np.array(self.a)
 		
 		self.curve.setData(self.p)
