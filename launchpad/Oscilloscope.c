@@ -1,7 +1,5 @@
 #include <msp430g2553.h>
 #include <legacymsp430.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 char buffer[4];
 int count=0;
@@ -21,7 +19,7 @@ void uart_init()
 {
 	UCA0CTL1 = UCSWRST;
 	UCA0CTL1 = UCSSEL_2;
-	UCA0BR0=0x8A; //0x8A for 115200
+	UCA0BR0=0x22; //0x8A for 115200
 	UCA0BR1=0;
 	UCA0MCTL = UCBRS0;    
 	P1SEL = BIT1 + BIT2;                // P1.1 = RXD, P1.2=TXD
@@ -43,7 +41,10 @@ int main(void)
 {
 
 watchdog_init();
-
+			
+	ADC10CTL0 = ADC10ON;	// 16 clock ticks, ADC On, enable ADC interrupt
+	ADC10CTL1 = ADC10SSEL_3 + INCH_5;		//internal temp sensor
+	ADC10CTL0 |=  ENC + ADC10SC;  
 clock_init();
 port_init();
 uart_init();
@@ -55,18 +56,17 @@ return 0;
 
 void Single_Measure(void)
 {
-	ADC10CTL0 &= ~ENC;				// Disable ADC
-	ADC10CTL0 = ADC10ON;	// 16 clock ticks, ADC On, enable ADC interrupt
-	ADC10CTL1 = ADC10SSEL_3 + INCH_5;		//internal temp sensor
+	
 	ADC10CTL0 |= ENC + ADC10SC;            	// Enable and start conversion
-	putchar((ADC10MEM)*0.25);
+	putchar((ADC10MEM)>>2);
 	
 	count += 1;
 	if(count == 128)
 	{
 		P1OUT ^= BIT0;
 		count = 0;
-	}
+	}ADC10CTL0 &= ~ENC;				// Disable ADC
+	
 }
 
 int putchar(int b)
