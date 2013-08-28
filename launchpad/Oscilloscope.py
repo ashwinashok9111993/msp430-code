@@ -13,7 +13,7 @@ class Example(QtGui.QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
         self.a=[]
-        self.ser = serial.Serial("/dev/ttyUSB0",115200)
+        self.ser = serial.Serial("/dev/ttyUSB0",460800)
         self.initUI()
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.update_plot)
@@ -45,7 +45,7 @@ class Example(QtGui.QMainWindow):
         
     def update_plot(self):
         
-		for i in xrange(100):
+		for i in xrange(500):
 			self.ser.write('y')
 			self.a.append(ord(self.ser.read(1)))
 			self.p=np.array(self.a)
